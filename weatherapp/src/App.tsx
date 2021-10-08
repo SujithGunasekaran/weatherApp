@@ -1,11 +1,18 @@
-import React, { FC, Fragment } from 'react';
+import React, { FC, Fragment, Suspense, lazy } from 'react';
+import './Style/main.css';
+import './Style/header.css';
 
+const Home = lazy(() => import('./Components/Home'));
 
 const App: FC = () => {
 
   return (
     <Fragment>
-      <div>App Component</div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <div className="page">
+          <Home />
+        </div>
+      </Suspense>
     </Fragment>
   )
 
