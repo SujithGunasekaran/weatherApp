@@ -1,0 +1,38 @@
+
+:root {
+    --body-bg : #020304;
+    --border-color : #696868;
+
+    /* Black colors */
+    --black-025: #fafafb;
+    --black-050: #eff0f1;
+    --black-075: #e4e6e8;
+    --black-100: #d6d9dc;
+    --black-150: #c8ccd0;
+    --black-200: #bbc0c4;
+    --black-300: #9fa6ad;
+    --black-350: #9199a1;
+    --black-400: #848d95;
+    --black-500: #6a737c;
+    --black-600: #535a60;
+    --black-700: #242c37;
+    --black-750: #2f3337;
+    --black-800: #151a21;
+    --black-900: #191b1d;
+
+    --inter-text : 'Inter', sans-serif;
+}
+
+.page {
+    min-height: 100vh;
+    background-color: var(--body-bg);
+}
+.page_body
+{
+    padding: 15px;
+    width: 100%;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap');
