@@ -1,6 +1,7 @@
 import React, { FC, Fragment, Suspense, lazy } from 'react';
 import './Style/main.css';
 import './Style/header.css';
+import './Style/card.css';
 
 const Home = lazy(() => import('./Components/Home'));
 

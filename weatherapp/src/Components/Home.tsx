@@ -46,15 +46,16 @@ const Home: FC = () => {
             <Suspense fallback={<div>Loading...</div>}>
                 <Header />
             </Suspense>
-            {
-                currentLocationData &&
-                <Suspense fallback={<div>Loading...</div>}>
-                    <CityCard
-                        currentLocationInformation={currentLocationData}
-                    />
-                </Suspense>
-            }
-
+            <div className="page_body">
+                {
+                    currentLocationData &&
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <CityCard
+                            currentLocationInformation={currentLocationData}
+                        />
+                    </Suspense>
+                }
+            </div>
         </Fragment>
     )
 
