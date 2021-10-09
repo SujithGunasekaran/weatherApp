@@ -1,26 +1,54 @@
-import React, { FC, Fragment } from 'react';
+import React, { FC, Fragment, useState } from 'react';
+import { SearchIcon } from '../UI/Icons';
 
+type HeaderProps = {
+    getLocationByCityName: (locationName: string | undefined) => Promise<void>
+}
 
-const Header: FC = () => {
+const Header: FC<HeaderProps> = (props) => {
+
+    // react-props
+    const { getLocationByCityName } = props;
+
+    // react-state
+    const [location, setLocation] = useState<string | undefined>('');
+
+    const handleInputFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setLocation(e.target.value);
+    }
+
+    const handleFormSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            getLocationByCityName(location)
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
 
     return (
         <Fragment>
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-md-12">
-                        <div className="header_main">
-                            <div className="header_logo">
-                                Daily Weather
-                            </div>
-                            <div className="header_search_container">
-                                <input
-                                    className="header_search_input"
-                                    placeholder="Search Location"
+            <div className="header_main">
+                <form onSubmit={handleFormSubmit}>
+                    <div className="row">
+                        <div className="col-md-10">
+                            <input
+                                className="header_search_input"
+                                placeholder="Search Location"
+                                value={location}
+                                onChange={handleInputFieldChange}
+                            />
+                        </div>
+                        <div className="col-md-2">
+                            <button type="submit" className="header_search_icon_container">
+                                <SearchIcon
+                                    cssClass="header_search_icon"
                                 />
-                            </div>
+                            </button>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </Fragment>
     )
