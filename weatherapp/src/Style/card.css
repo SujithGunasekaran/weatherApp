@@ -1,27 +1,134 @@
 /* city card */
 
-.city_card_container
-{
-    padding: 20px 15px;
+.city_card_container {
+    margin-bottom: 30px;
+    padding: 20px 20px;
     background-color: var(--card-bg);
     border-radius: 15px;
     box-shadow: 0 16px 32px rgba(1,4,9,0.85);
 }
-.city_card_heading
-{
-    font-family: var(--inter-text);
-    font-size: 1.5rem;
-    font-weight: 800;
-    background-clip: text;
+.city_card_heading_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.city_card_geo_icon {
+    width: 23px;
+    height: 23px;
+    color: #FC5C7D;
+    background-clip: border-box;
     background: linear-gradient(to right, #FC5C7D 0%, #6a82fb 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-.city_card_temperature
+.city_card_heading
 {
-    padding: 18px 0px;
+    padding-left: 8px;
     font-family: var(--inter-text);
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--black-350);
+}
+.city_card_temperature, 
+.daily_card_temperature
+{
+    padding: 10px 0px 7px 0px;
+    font-family: var(--IBM-text);
+    font-size: 1.7rem;
+    font-weight: 600;
+    text-align: center;
+    color: var(--black-100);
+}
+.city_card_info_container, 
+.dailt_card_info_container
+{
+    padding: 0px 0px;
+    text-align: center;
+}
+.city_card_info_icon, 
+.dailt_card_info_icon
+{
+    width: 80px;
+    height: 80px;
+}
+.city_card_info_name,
+.daily_card_info_name
+{
+    padding-top: 2px 0px 10px 0px;
+    font-size: .9rem;
+    font-family: var(--inter-text);
     font-weight: 600;
     color: var(--black-300);
+}
+.city_card_weather_container,
+.daily_card_weather_container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 25px 0px 15px 0px;
+}
+.city_card_weather_wind,
+.daily_card_weather_wind
+{
+    display: flex;
+    align-items: center;
+    padding: 0px 25px 0px 0px;
+}
+.city_card_weather_icon,
+.daily_card_weather_icon
+{
+    width: 18px;
+    height: 18px;
+    color: #FC5C7D;
+    background-clip: border-box;
+    background: linear-gradient(to right, #FC5C7D 0%, #6a82fb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.city_card_weather_rain,
+.daily_card_weather_rain
+{
+    display: flex;
+    align-items: center;
+    padding: 0px 25px 0px 0px;
+}
+.city_card_rain, 
+.daily_card_rain
+{
+    padding : 0px 0px 0px 7px;
+    font-size: .9rem;
+    font-family: var(--inter-text);
+    font-weight: 400;
+    color: var(--black-300);
+}
+.city_card_wind,
+.daily_card_wind
+{
+    padding : 0px 0px 0px 7px;
+    font-size: .9rem;
+    font-family: var(--inter-text);
+    font-weight: 400;
+    color: var(--black-300);
+}
+
+
+/* Daily card css */
+
+.daily_card_container
+{
+    margin: 25px 0px;
+    padding: 20px 20px;
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    box-shadow: 0 16px 32px rgba(1,4,9,0.85);
+}
+.daily_card_heading
+{
+    padding-left: 8px;
+    font-family: var(--inter-text);
+    font-size: .9rem;
+    font-weight: 500;
+    color: var(--black-350);
 }
