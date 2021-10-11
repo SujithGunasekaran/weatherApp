@@ -1,13 +1,13 @@
 import React, { FC, Fragment, Suspense, lazy, useEffect, useState } from 'react';
-import axios from 'axios';
-import { weatherKey } from '../config';
+import { getCurrentLocationByLatLng, getSevenDayLocationByLatLng, getCurrentLocationByCity } from '../util';
 
+const Header = lazy(() => import('./Header'));
 const CityCard = lazy(() => import('../UI/CityCard'));
 const DailyCard = lazy(() => import('../UI/DailyCard'));
 
 const Home: FC = () => {
 
-    const [locationData, setLocationData] = useState<{ lat: String | Number, lng: String | Number }>();
+    const [locationData, setLocationData] = useState<{ lat: string | number | undefined, lng: string | number | undefined }>();
     const [currentLocationData, setCurrentLocationData] = useState<{ [key: string]: any }>();
     const [locationDetail, setLocationDetail] = useState<{ [key: string]: any }>();
 
@@ -32,14 +32,12 @@ const Home: FC = () => {
 
     const getLocationInfoBtLatLng = async () => {
         try {
-            const locationInfo = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${locationData?.lat}&lon=${locationData?.lng}&units=metric&APPID=${weatherKey.key}`)
-            const locationResponse = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${locationData?.lat}&lon=${locationData?.lng}&type=hour&exclude=minutely,hourly&units=metric&appid=${weatherKey.key}`)
-            if (locationResponse.data) {
-                setCurrentLocationData(locationResponse.data);
-
+            const [currentLocationInfo, sevenDayLocationInfo] = await Promise.all([getCurrentLocationByLatLng({ lat: locationData?.lat, lng: locationData?.lng }), getSevenDayLocationByLatLng({ lat: locationData?.lat, lng: locationData?.lng })]);
+            if (currentLocationInfo) {
+                setLocationDetail(currentLocationInfo);
             }
-            if (locationInfo.data) {
-                setLocationDetail(locationInfo.data);
+            if (sevenDayLocationInfo) {
+                setCurrentLocationData(sevenDayLocationInfo);
             }
         }
         catch (err) {
@@ -47,10 +45,15 @@ const Home: FC = () => {
         }
     }
 
-    const getLocationByCityName = async (locationName: string | undefined) => {
-        if (locationName) {
+    const getLocationByCityName = async (cityName: string | undefined) => {
+        if (cityName) {
             try {
-                const locationResponse = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${locationName}&appid=${weatherKey.key}`)
+                const locationData: any = await getCurrentLocationByCity(cityName || undefined);
+                if (locationData) {
+                    const sevenDayLocationInfo = await getSevenDayLocationByLatLng({ lat: locationData?.coord?.lat ?? undefined, lng: locationData?.coord?.lon ?? undefined });
+                    setLocationDetail(locationData);
+                    if (sevenDayLocationInfo) setCurrentLocationData(sevenDayLocationInfo);
+                }
             }
             catch (err) {
                 console.log(err);
@@ -60,6 +63,17 @@ const Home: FC = () => {
 
     return (
         <Fragment>
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-md-12">
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <Header
+                                getLocationByCityName={getLocationByCityName}
+                            />
+                        </Suspense>
+                    </div>
+                </div>
+            </div>
             <div className="page_body">
                 {
                     currentLocationData && locationDetail &&
@@ -71,7 +85,6 @@ const Home: FC = () => {
                                         <CityCard
                                             locationDetail={locationDetail}
                                             currentLocationInformation={currentLocationData.current}
-                                            getLocationByCityName={getLocationByCityName}
                                         />
                                     </Suspense>
                                 </div>

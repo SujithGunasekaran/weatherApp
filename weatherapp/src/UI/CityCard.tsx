@@ -1,4 +1,4 @@
-import React, { FC, Fragment, lazy, Suspense } from 'react';
+import React, { FC, Fragment } from 'react';
 import { GeoIcon, WindIcon, RainIcon } from '../UI/Icons';
 
 
@@ -9,12 +9,11 @@ interface dynamicObject {
 type CityCardProps = {
     currentLocationInformation: dynamicObject,
     locationDetail: dynamicObject,
-    getLocationByCityName: (locationname: string | undefined) => Promise<void>
 }
 
 const CityCard: FC<CityCardProps> = (props) => {
 
-    const { currentLocationInformation, locationDetail, getLocationByCityName } = props;
+    const { currentLocationInformation, locationDetail } = props;
 
     return (
         <Fragment>
@@ -26,6 +25,7 @@ const CityCard: FC<CityCardProps> = (props) => {
                     <div className="city_card_heading">{locationDetail?.name ?? ''}</div>
                 </div>
                 {
+                    currentLocationInformation.weather &&
                     currentLocationInformation.weather.length > 0 &&
                     <div className="city_card_info_container">
                         <img src={`https://openweathermap.org/img/wn/${currentLocationInformation.weather[0].icon}.png`} className="city_card_info_icon" alt={locationDetail?.name} />
@@ -44,7 +44,7 @@ const CityCard: FC<CityCardProps> = (props) => {
                         <RainIcon
                             cssClass="city_card_weather_icon"
                         />
-                        <div className="city_card_rain">{currentLocationInformation['rain']['1h'].toFixed(0) || 0}%</div>
+                        <div className="city_card_rain">{currentLocationInformation.rain ? currentLocationInformation['rain']['1h'].toFixed(0) : 0}%</div>
                     </div>
                 </div>
             </div>

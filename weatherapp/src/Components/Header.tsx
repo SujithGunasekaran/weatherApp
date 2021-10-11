@@ -20,6 +20,7 @@ const Header: FC<HeaderProps> = (props) => {
     const handleFormSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         try {
+            setLocation('');
             getLocationByCityName(location)
         }
         catch (err) {
@@ -32,7 +33,7 @@ const Header: FC<HeaderProps> = (props) => {
             <div className="header_main">
                 <form onSubmit={handleFormSubmit}>
                     <div className="row">
-                        <div className="col-md-10">
+                        <div className="col-md-11">
                             <input
                                 className="header_search_input"
                                 placeholder="Search Location"
@@ -40,7 +41,7 @@ const Header: FC<HeaderProps> = (props) => {
                                 onChange={handleInputFieldChange}
                             />
                         </div>
-                        <div className="col-md-2">
+                        <div className="col-md-1">
                             <button type="submit" className="header_search_icon_container">
                                 <SearchIcon
                                     cssClass="header_search_icon"
