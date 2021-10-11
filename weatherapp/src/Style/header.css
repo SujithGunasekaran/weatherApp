@@ -1,6 +1,6 @@
 .header_main
 {
-    padding: 0px 0px 25px 0px;
+    padding: 25px 0px 25px 0px;
 }
 .header_search_input
 {
@@ -38,7 +38,13 @@
     border-radius: 50%;
     cursor: pointer;
     border: none;
+    border: 1px solid var(--black-700);
     background-color: var(--black-700);
+    transition: 0.4s all ease-in-out;
+}
+.header_search_icon_container:hover
+{
+    border: 1px solid #FC5C7D;
 }
 .header_search_icon {
     width: 18px;
